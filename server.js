@@ -14,11 +14,9 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-    hello(socket);
+    socket.on('msg', (msg) => {
+        io.emit('message', msg)
+        console.log(msg)
+    })
 });
-function hello(socket){
-    setInterval(function () {
-        socket.emit("hello", "world");
-    }, 1000)
-}
 http.listen(1212);
